@@ -58,6 +58,7 @@ export default function Home() {
 
       <main>
         <Header />
+        <h1>Day 1</h1>
         <h2>Part 1</h2>
         <p>{findGreaterDepths(getInput())}</p>
         <h2>Part 2</h2>

@@ -1,11 +1,9 @@
-import Head from 'next/head';
-import Header from '@components/Header';
-import Footer from '@components/Footer';
-import styled from 'styled-components';
-import CalendarDoor from '@components/CalendarDoor';
-import { CalendarGrid } from '@components/CalendarGrid';
-
-
+import Head from "next/head";
+import Header from "@components/Header";
+import Footer from "@components/Footer";
+import styled from "styled-components";
+import CalendarDoor from "@components/CalendarDoor";
+import { CalendarGrid } from "@components/CalendarGrid";
 
 const Container = styled.div`
   height: 100vh;
@@ -18,25 +16,22 @@ const Container = styled.div`
   background-image: url("winter_background.png");
 `;
 
-
 export default function Home() {
   return (
     <Container>
       <Head>
-        <title>Next.js Starter!</title>
+        <title>Advent Of Code - 2021</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
-        <Header/>
+        <Header />
         <CalendarGrid>
-          <CalendarDoor/>
-          
+          <CalendarDoor />
+        </CalendarGrid>
+      </main>
 
-      </CalendarGrid>
-       </main>
-      
       <Footer />
     </Container>
-  )
+  );
 }
