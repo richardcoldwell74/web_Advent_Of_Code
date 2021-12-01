@@ -1,12 +1,10 @@
 import Head from 'next/head';
 import Header from '@components/Header';
 import Footer from '@components/Footer';
-import { input } from './input';
-import { testInput } from './testInput';
+import { input } from '../../api/day_01/input';
+import { testInput } from '../../api/day_01/testInput';
 import styled from 'styled-components';
 import { useState } from 'react';
-
-
 
 
 const findGreaterDepths = (
@@ -16,7 +14,7 @@ const findGreaterDepths = (
   let lastDepth = inputArray[0];
   for (const depth of inputArray) {
     if (depth > lastDepth) {
-      count++ ;
+      count++;
     }
     lastDepth = depth;
   }
@@ -32,13 +30,13 @@ const findGreaterDepthsGrouped = (
   let lastDepth = inputArray[0] + inputArray[1] + inputArray[2];
   for (let index = 0; index < inputArray.length; index++) {
     if (index < inputArray.length - 2)
-    depth = inputArray[index] + inputArray[index + 1] + inputArray[index + 2]
+      depth = inputArray[index] + inputArray[index + 1] + inputArray[index + 2]
     {
       if (depth > lastDepth) {
-        count++ ;
+        count++;
       }
       lastDepth = depth;
-    }    
+    }
   }
   return count;
 }
@@ -58,11 +56,11 @@ export default function Home() {
         <Header title="Advent Of Code Day 01" />
         <h2>Part 1</h2>
         <p >
-         {findGreaterDepths(getInput())}
+          {findGreaterDepths(getInput())}
         </p>
         <h2>Part 2</h2>
         <p >
-         {findGreaterDepthsGrouped(getInput())}
+          {findGreaterDepthsGrouped(getInput())}
         </p>
       </main>
 
