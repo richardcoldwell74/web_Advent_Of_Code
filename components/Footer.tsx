@@ -1,11 +1,23 @@
-import styles from './Footer.module.css'
+import styled from 'styled-components';
+
+const FooterContainer = styled.div`
+  width: 100%;
+  height: 100px;
+  border-top: 1px solid #eaeaea;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+
+
+`;
 
 export default function Footer() {
   return (
     <>
-      <footer className={styles.footer}>
-        Made with <img src="/netliheart.svg" alt="Netlify Logo" className={styles.logo} /> for you
-      </footer>
+      <FooterContainer>
+        Richard Coldwell - 2021
+      </FooterContainer>
     </>
   )
 }
