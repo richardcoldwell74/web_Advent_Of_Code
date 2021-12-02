@@ -66,9 +66,13 @@ margin:0;
   color: #ddd;
 `;
 
-export default function CalendarDoor() {
-  const [doorOpen, setDoorOpen] = useState(false);
+interface CalendarDoorProps {
+  day: string;
+}
 
+export default function CalendarDoor({day}) {
+  const [doorOpen, setDoorOpen] = useState(false);
+  const [doorLink, setDoorLink] = useState("Day_0" + day)
   const openDoor = (): void => {
     setDoorOpen(!doorOpen);
   };
@@ -76,13 +80,13 @@ export default function CalendarDoor() {
   return (
     <Door doorOpen={doorOpen}>
       <DoorFront onClick={() => openDoor()}>
-        <DoorLabel>1</DoorLabel>
+        <DoorLabel>{day}</DoorLabel>
       </DoorFront>
       <DoorBack>
         <Doorflipper onClick={() => openDoor()} />
-        <Link href="/Day_01">
+        <Link href={doorLink}>
         <DoorLink>
-          <DayText>Day 1</DayText>
+          <DayText>Day {day}</DayText>
         </DoorLink>
         </Link>
       </DoorBack>

@@ -48,7 +48,7 @@ const findGreaterDepthsGrouped = (inputArray: number[]): number => {
 
 const getInput = (): number[] => input.split("\n").map(Number);
 
-export default function Home() {
+export default function Day01() {
   return (
     <Container>
       <Head>
