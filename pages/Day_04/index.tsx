@@ -212,7 +212,7 @@ const CalculateAnswerPartTwo = () => {
 };
 
 export default function Day04() {
-  const [firstAnswer, setFirstAnswer] = useState("");
+  const [firstAnswer, setFirstAnswer] = useState(CalculateAnswerPartOne);
   const [secondAnswer, setSecondAnswer] = useState(CalculateAnswerPartTwo());
   return (
     <Container>
