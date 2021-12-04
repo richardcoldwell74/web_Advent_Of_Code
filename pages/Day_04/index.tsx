@@ -6,6 +6,7 @@ import { testNumbers } from "../../api/day_04/testNumbers";
 import { BoardsInput } from "../../api/day_04/BoardsInput";
 import { NumbersInput } from "../../api/day_04/NumbersInput";
 import styled from "styled-components";
+import { useState } from "react";
 
 const Container = styled.div`
   height: 100vh;
@@ -17,51 +18,6 @@ const Container = styled.div`
   background-size: cover;
   background-image: url("winter_background.png");
 `;
-
-const CalculateAnswerPartOne = () => {
-  let winningTotal = 0;
-  let answer = 0;
-  let numbersInput = getInputNumbers();
-  let boardInput = getInputBoards();
-  console.log(numbersInput);
-  console.log(boardInput);
-  //loop through each number called
-  // numbersInput.forEach((calledNumber) => {
-  for (let numberIndex = 0; numberIndex < numbersInput.length; numberIndex++) {
-    //loop through each Board
-    for (let BoardIndex = 0; BoardIndex < boardInput.length; BoardIndex++) {
-      //loop through each row of the board
-      for (
-        let BoardLineIndex = 0;
-        BoardLineIndex < boardInput[BoardIndex].length;
-        BoardLineIndex++
-      ) {
-        //loop through each number in the row
-        for (
-          let BoardNumberIndex = 0;
-          BoardNumberIndex < boardInput[BoardIndex][BoardLineIndex].length;
-          BoardNumberIndex++
-        ) {
-          //compare called number with number on board and if a match set value to 100
-          if (
-            numbersInput[numberIndex] ===
-            boardInput[BoardIndex][BoardLineIndex][BoardNumberIndex]
-          ) {
-            boardInput[BoardIndex][BoardLineIndex][BoardNumberIndex] = 100;
-          }
-        }
-        let returnValue = CheckIfWinningLine(boardInput);
-        if (returnValue != -1) {
-          answer =
-            RestOfBoardValue(boardInput, BoardIndex) *
-            numbersInput[numberIndex];
-          return answer;
-        }
-      }
-    }
-  }
-  return answer;
-};
 
 const CheckIfWinningLine = (boardInput) => {
   //is it a winning line across
@@ -89,25 +45,26 @@ const CheckIfWinningLine = (boardInput) => {
       }
     }
   }
+
+  return -1;
+};
+
+const CheckIfWinningColumn = (boardInput) => {
   //is it a winning line down
   //loop through each board
   for (let BoardIndex = 0; BoardIndex < boardInput.length; BoardIndex++) {
     //loop though each column of the board
 
-    for (
-      let BoardNumberIndex = 0;
-      BoardNumberIndex < boardInput[BoardIndex][0].length;
-      BoardNumberIndex++
-    ) {
-      let lineTotal = 0;
+    for (let BoardNumberIndex = 0; BoardNumberIndex < 5; BoardNumberIndex++) {
+      let columnTotal = 0;
 
-      lineTotal += boardInput[BoardIndex][0][BoardNumberIndex];
-      lineTotal += boardInput[BoardIndex][1][BoardNumberIndex];
-      lineTotal += boardInput[BoardIndex][2][BoardNumberIndex];
-      lineTotal += boardInput[BoardIndex][3][BoardNumberIndex];
-      lineTotal += boardInput[BoardIndex][4][BoardNumberIndex];
+      columnTotal += boardInput[BoardIndex][0][BoardNumberIndex];
+      columnTotal += boardInput[BoardIndex][1][BoardNumberIndex];
+      columnTotal += boardInput[BoardIndex][2][BoardNumberIndex];
+      columnTotal += boardInput[BoardIndex][3][BoardNumberIndex];
+      columnTotal += boardInput[BoardIndex][4][BoardNumberIndex];
 
-      if (lineTotal === 500) {
+      if (columnTotal === 500) {
         return BoardIndex;
       }
     }
@@ -140,15 +97,13 @@ const RestOfBoardValue = (boardInput, BoardIndex) => {
   return BoardRemainingTotal;
 };
 
-const CalculateAnswerPartTwo = () => {
-  let answer = 0;
-  return answer;
-};
-
-const getInputNumbers = (): number[] => NumbersInput.split(",").map(Number);
+const getInputNumbers = (): number[] => testNumbers.split(",").map(Number);
+// const getInputNumbers = (): number[] => NumbersInput.split(",").map(Number);
 
 const getInputBoards = () =>
-  BoardsInput.split("\n")
+  // BoardsInput.split("\n")
+  testBoards
+    .split("\n")
     .join("\n")
     .split("\n\n")
     .map((board) => {
@@ -160,7 +115,109 @@ const getInputBoards = () =>
       );
     });
 
-export default function Day03() {
+const CalculateAnswerPartOne = () => {
+  let answer = 0;
+  let numbersInput = getInputNumbers();
+  let boardInput = getInputBoards();
+  //loop through each number called
+  // numbersInput.forEach((calledNumber) => {
+  for (let numberIndex = 0; numberIndex < numbersInput.length; numberIndex++) {
+    //loop through each Board
+    for (let BoardIndex = 0; BoardIndex < boardInput.length; BoardIndex++) {
+      //loop through each row of the board
+      for (
+        let BoardLineIndex = 0;
+        BoardLineIndex < boardInput[BoardIndex].length;
+        BoardLineIndex++
+      ) {
+        //loop through each number in the row
+        for (
+          let BoardNumberIndex = 0;
+          BoardNumberIndex < boardInput[BoardIndex][BoardLineIndex].length;
+          BoardNumberIndex++
+        ) {
+          //compare called number with number on board and if a match set value to 100
+          if (
+            numbersInput[numberIndex] ===
+            boardInput[BoardIndex][BoardLineIndex][BoardNumberIndex]
+          ) {
+            boardInput[BoardIndex][BoardLineIndex][BoardNumberIndex] = 100;
+          }
+        }
+      }
+      let returnValue = CheckIfWinningLine(boardInput);
+      if (returnValue != -1) {
+        answer =
+          RestOfBoardValue(boardInput, BoardIndex) * numbersInput[numberIndex];
+        return answer;
+      }
+    }
+  }
+  return answer;
+};
+
+const CalculateAnswerPartTwo = () => {
+  let answer = 0;
+  let numbersInput = getInputNumbers();
+  console.log(numbersInput);
+  let boardInput = getInputBoards();
+  let winningBoards = [];
+  const totalBoards = boardInput.length;
+  //loop through each number called
+  // numbersInput.forEach((calledNumber) => {
+  for (let numberIndex = 0; numberIndex < numbersInput.length; numberIndex++) {
+    //loop through each Board
+    for (let BoardIndex = 0; BoardIndex < boardInput.length; BoardIndex++) {
+      //loop through each row of the board
+      for (
+        let BoardLineIndex = 0;
+        BoardLineIndex < boardInput[BoardIndex].length;
+        BoardLineIndex++
+      ) {
+        //loop through each number in the row
+        for (
+          let BoardNumberIndex = 0;
+          BoardNumberIndex < boardInput[BoardIndex][BoardLineIndex].length;
+          BoardNumberIndex++
+        ) {
+          //compare called number with number on board and if a match set value to 100
+          if (
+            numbersInput[numberIndex] ===
+            boardInput[BoardIndex][BoardLineIndex][BoardNumberIndex]
+          ) {
+            boardInput[BoardIndex][BoardLineIndex][BoardNumberIndex] = 100;
+          }
+        }
+      }
+      let returnValueLine = CheckIfWinningLine(boardInput);
+      if (returnValueLine != -1) {
+        if (!winningBoards.includes(returnValueLine)) {
+          winningBoards.push(returnValueLine);
+        }
+        let returnValueColumn = CheckIfWinningColumn(boardInput);
+        if (returnValueColumn != -1) {
+          if (!winningBoards.includes(returnValueColumn)) {
+            winningBoards.push(returnValueColumn);
+          }
+
+          if (winningBoards.length === totalBoards) {
+            answer =
+              RestOfBoardValue(boardInput, BoardIndex) *
+              numbersInput[numberIndex];
+
+            console.log(answer);
+            return answer;
+          }
+        }
+      }
+    }
+  }
+  return answer;
+};
+
+export default function Day04() {
+  const [firstAnswer, setFirstAnswer] = useState(CalculateAnswerPartOne());
+  const [secondAnswer, setSecondAnswer] = useState(CalculateAnswerPartTwo());
   return (
     <Container>
       <Head>
@@ -172,9 +229,9 @@ export default function Day03() {
         <Header />
         <h1>Day 4</h1>
         <h2>Part 1</h2>
-        <p>{CalculateAnswerPartOne()}</p>
+        <p>{firstAnswer}</p>
         <h2>Part 2</h2>
-        <p>{CalculateAnswerPartTwo()}</p>
+        <p>{secondAnswer}</p>
       </main>
 
       <Footer />
