@@ -145,7 +145,8 @@ const CalculateAnswerPartOne = () => {
         }
       }
       let returnValue = CheckIfWinningLine(boardInput);
-      if (returnValue != -1) {
+      let returnValueColumn = CheckIfWinningColumn(boardInput);
+      if (returnValue != -1 || returnValueColumn != -1) {
         answer =
           RestOfBoardValue(boardInput, BoardIndex) * numbersInput[numberIndex];
         return answer;
@@ -158,12 +159,11 @@ const CalculateAnswerPartOne = () => {
 const CalculateAnswerPartTwo = () => {
   let answer = 0;
   let numbersInput = getInputNumbers();
-  console.log(numbersInput);
   let boardInput = getInputBoards();
+  console.log(boardInput);
   let winningBoards = [];
   const totalBoards = boardInput.length;
   //loop through each number called
-  // numbersInput.forEach((calledNumber) => {
   for (let numberIndex = 0; numberIndex < numbersInput.length; numberIndex++) {
     //loop through each Board
     for (let BoardIndex = 0; BoardIndex < boardInput.length; BoardIndex++) {
@@ -200,7 +200,9 @@ const CalculateAnswerPartTwo = () => {
           winningBoards.push(returnValueColumn);
         }
       }
-
+      if (winningBoards.length === 98) {
+        console.log("98 WINNERS");
+      }
       if (winningBoards.length === totalBoards) {
         answer =
           RestOfBoardValue(boardInput, BoardIndex) * numbersInput[numberIndex];
