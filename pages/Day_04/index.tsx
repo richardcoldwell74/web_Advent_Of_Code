@@ -160,7 +160,6 @@ const CalculateAnswerPartTwo = () => {
   let answer = 0;
   let numbersInput = getInputNumbers();
   let boardInput = getInputBoards();
-  console.log(boardInput);
   let winningBoards = [];
   const totalBoards = boardInput.length;
   //loop through each number called
@@ -200,9 +199,6 @@ const CalculateAnswerPartTwo = () => {
           winningBoards.push(returnValueColumn);
         }
       }
-      if (winningBoards.length === 98) {
-        console.log("98 WINNERS");
-      }
       if (winningBoards.length === totalBoards) {
         answer =
           RestOfBoardValue(boardInput, BoardIndex) * numbersInput[numberIndex];
@@ -216,7 +212,7 @@ const CalculateAnswerPartTwo = () => {
 };
 
 export default function Day04() {
-  const [firstAnswer, setFirstAnswer] = useState(CalculateAnswerPartOne());
+  const [firstAnswer, setFirstAnswer] = useState("");
   const [secondAnswer, setSecondAnswer] = useState(CalculateAnswerPartTwo());
   return (
     <Container>
