@@ -97,13 +97,12 @@ const RestOfBoardValue = (boardInput, BoardIndex) => {
   return BoardRemainingTotal;
 };
 
-const getInputNumbers = (): number[] => testNumbers.split(",").map(Number);
+const getInputNumbers = (): number[] => NumbersInput.split(",").map(Number);
 // const getInputNumbers = (): number[] => NumbersInput.split(",").map(Number);
 
 const getInputBoards = () =>
   // BoardsInput.split("\n")
-  testBoards
-    .split("\n")
+  BoardsInput.split("\n")
     .join("\n")
     .split("\n\n")
     .map((board) => {
@@ -194,21 +193,20 @@ const CalculateAnswerPartTwo = () => {
         if (!winningBoards.includes(returnValueLine)) {
           winningBoards.push(returnValueLine);
         }
-        let returnValueColumn = CheckIfWinningColumn(boardInput);
-        if (returnValueColumn != -1) {
-          if (!winningBoards.includes(returnValueColumn)) {
-            winningBoards.push(returnValueColumn);
-          }
-
-          if (winningBoards.length === totalBoards) {
-            answer =
-              RestOfBoardValue(boardInput, BoardIndex) *
-              numbersInput[numberIndex];
-
-            console.log(answer);
-            return answer;
-          }
+      }
+      let returnValueColumn = CheckIfWinningColumn(boardInput);
+      if (returnValueColumn != -1) {
+        if (!winningBoards.includes(returnValueColumn)) {
+          winningBoards.push(returnValueColumn);
         }
+      }
+
+      if (winningBoards.length === totalBoards) {
+        answer =
+          RestOfBoardValue(boardInput, BoardIndex) * numbersInput[numberIndex];
+
+        console.log(answer);
+        return answer;
       }
     }
   }
