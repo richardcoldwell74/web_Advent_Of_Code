@@ -58,7 +58,32 @@ const CalculateAnswerPartOne = () => {
 
 const CalculateAnswerPartTwo = () => {
   let answer = 0;
+  let numbersInput = getInputNumbers();
+  let boardInput = getInputBoards();
+  let LastWinningBoard: number[][] = [];
+  let lastWinningNumber: number = 0;
 
+  //loop through each number called
+  for (let calledNumber of numbersInput) {
+    //mark off the current number from the board
+    boardInput = markBoards(boardInput, calledNumber);
+    let boardInputIndex = 0;
+    for (let board of boardInput) {
+      let ItsAWinner = constCheckIfBoardIsALineWinner(board);
+      let ItsAColumnWinner = CheckIfWinningColumnTOUPDATE(board);
+      if (ItsAWinner || ItsAColumnWinner) {
+        LastWinningBoard = board;
+        lastWinningNumber = calledNumber;
+        boardInput[boardInputIndex] = boardInput[boardInputIndex].map((line) =>
+          line.map((number) => {
+            return 500;
+          })
+        );
+      }
+      boardInputIndex++;
+    }
+  }
+  answer = RestOfBoardValueTOUPDATE(LastWinningBoard) * lastWinningNumber;
   return answer;
 };
 
