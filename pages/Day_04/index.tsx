@@ -45,10 +45,10 @@ const CalculateAnswerPartOne = () => {
     //mark off the current number from the board
     boardInput = markBoards(boardInput, calledNumber);
     for (let board of boardInput) {
-      let ItsAWinner = constCheckIfBoardIsALineWinner(board);
-      let ItsAColumnWinner = CheckIfWinningColumnTOUPDATE(board);
+      let ItsAWinner = CheckIfWinningLine(board);
+      let ItsAColumnWinner = CheckIfWinningColumn(board);
       if (ItsAWinner || ItsAColumnWinner) {
-        answer = RestOfBoardValueTOUPDATE(board) * calledNumber;
+        answer = RestOfBoardValue(board) * calledNumber;
         return answer;
       }
     }
@@ -69,8 +69,8 @@ const CalculateAnswerPartTwo = () => {
     boardInput = markBoards(boardInput, calledNumber);
     let boardInputIndex = 0;
     for (let board of boardInput) {
-      let ItsAWinner = constCheckIfBoardIsALineWinner(board);
-      let ItsAColumnWinner = CheckIfWinningColumnTOUPDATE(board);
+      let ItsAWinner = CheckIfWinningLine(board);
+      let ItsAColumnWinner = CheckIfWinningColumn(board);
       if (ItsAWinner || ItsAColumnWinner) {
         LastWinningBoard = board;
         lastWinningNumber = calledNumber;
@@ -83,7 +83,7 @@ const CalculateAnswerPartTwo = () => {
       boardInputIndex++;
     }
   }
-  answer = RestOfBoardValueTOUPDATE(LastWinningBoard) * lastWinningNumber;
+  answer = RestOfBoardValue(LastWinningBoard) * lastWinningNumber;
   return answer;
 };
 
@@ -102,7 +102,7 @@ const markBoards = (boardInput: number[][][], calledNumber: number) => {
   return boardInput;
 };
 
-const RestOfBoardValueTOUPDATE = (board: number[][]) => {
+const RestOfBoardValue = (board: number[][]) => {
   let BoardRemainingTotal = 0;
   board.forEach((line) => {
     line.forEach((number) => {
@@ -114,7 +114,7 @@ const RestOfBoardValueTOUPDATE = (board: number[][]) => {
   return BoardRemainingTotal;
 };
 
-const constCheckIfBoardIsALineWinner = (board: number[][]) => {
+const CheckIfWinningLine = (board: number[][]) => {
   let returnValue: boolean = false;
   //loop through each row of the board
   board.forEach((line) => {
@@ -130,8 +130,8 @@ const constCheckIfBoardIsALineWinner = (board: number[][]) => {
   return returnValue;
 };
 
-const CheckIfWinningColumnTOUPDATE = (board: number[][]) => {
-  return constCheckIfBoardIsALineWinner(transpose(board));
+const CheckIfWinningColumn = (board: number[][]) => {
+  return CheckIfWinningLine(transpose(board));
 };
 
 function transpose(a) {
