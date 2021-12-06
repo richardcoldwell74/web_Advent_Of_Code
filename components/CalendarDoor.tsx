@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import Link from 'next/link';
+import Link from "next/link";
 
 const Door = styled.div<{ doorOpen: boolean }>`
   display: flex;
@@ -52,27 +52,28 @@ const DoorLabel = styled.h3`
 `;
 
 const DoorLink = styled.div`
-display: flex;
+  display: flex;
   width: 100%;
   height: 100%;
   background-color: transparent;
   justify-content: center;
   align-items: center;
-  cursor:pointer;
+  cursor: pointer;
 `;
 
 const DayText = styled.h3`
-margin:0;
+  margin: 0;
   color: #ddd;
 `;
 
 interface CalendarDoorProps {
   day: string;
+  year: string;
 }
 
-export default function CalendarDoor({day}) {
+export default function CalendarDoor({ day, year }) {
   const [doorOpen, setDoorOpen] = useState(false);
-  const [doorLink, setDoorLink] = useState("Day_0" + day)
+  const [doorLink, setDoorLink] = useState(year + "/Day_0" + day);
   const openDoor = (): void => {
     setDoorOpen(!doorOpen);
   };
@@ -85,9 +86,9 @@ export default function CalendarDoor({day}) {
       <DoorBack>
         <Doorflipper onClick={() => openDoor()} />
         <Link href={doorLink}>
-        <DoorLink>
-          <DayText>Day {day}</DayText>
-        </DoorLink>
+          <DoorLink>
+            <DayText>Day {day}</DayText>
+          </DoorLink>
         </Link>
       </DoorBack>
     </Door>

@@ -1,8 +1,8 @@
 import Head from "next/head";
 import Header from "@components/Header";
 import Footer from "@components/Footer";
-import { input } from "../../api/day_03/input";
-import { testInput } from "../../api/day_03/testInput";
+import { input } from "@api/2021/day_03/input";
+import { testInput } from "@api/2021/day_03/testInput";
 import styled from "styled-components";
 import { useState } from "react";
 
@@ -14,7 +14,7 @@ const Container = styled.div`
   align-items: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: url("winter_background.png");
+  background-image: url("/winter_background.png");
 `;
 
 const CalculateAnswerPartOne = () => {

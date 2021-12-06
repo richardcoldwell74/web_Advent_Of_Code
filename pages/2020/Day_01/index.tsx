@@ -1,10 +1,10 @@
 import Head from "next/head";
 import Header from "@components/Header";
 import Footer from "@components/Footer";
+import { input } from "@api/2021/day_01/input";
+import { testInput } from "@api/2021/day_01/testInput";
 import styled from "styled-components";
-import CalendarDoor from "@components/CalendarDoor";
-import { CalendarGrid } from "@components/CalendarGrid";
-import Link from "next/link";
+import { useState } from "react";
 
 const Container = styled.div`
   height: 100vh;
@@ -17,28 +17,34 @@ const Container = styled.div`
   background-image: url("/winter_background.png");
 `;
 
-const YearLinkText = styled.h3`
-  cursor: pointer;
-`;
+const PartOne = () => {
+  let answer = 0;
+  return answer;
+};
 
-export default function Home() {
+const PartTwo = () => {
+  let answer = 0;
+  return answer;
+};
+
+
+const getInput = (): number[] => input.split("\n").map(Number);
+
+export default function Day01() {
   return (
     <Container>
       <Head>
-        <title>Advent Of Code</title>
+        <title>AOC 2020 - Day 01</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
         <Header />
-        <h1>Advent Of Code</h1>
-
-        <Link href="/2020">
-          <YearLinkText>2020</YearLinkText>
-        </Link>
-        <Link href="/2021">
-          <YearLinkText>2021</YearLinkText>
-        </Link>
+        <h1>Day 1</h1>
+        <h2>Part 1</h2>
+        <p>{PartOne()}</p>
+        <h2>Part 2</h2>
+        <p>{PartTwo()}</p>
       </main>
 
       <Footer />

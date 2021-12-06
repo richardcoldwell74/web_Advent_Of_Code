@@ -1,8 +1,8 @@
 import Head from "next/head";
 import Header from "@components/Header";
 import Footer from "@components/Footer";
-import { input } from "../../api/day_06/input";
-import { testInput } from "../../api/day_06/testInput";
+import { input } from "@api/2021/day_06/input";
+import { testInput } from "@api/2021/day_06/testInput";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 
@@ -14,15 +14,15 @@ const Container = styled.div`
   align-items: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: url("winter_background.png");
+  background-image: url("/winter_background.png");
 `;
 
 const CalculateAnswerPartOne = () => {
-  let AnglerFishData = getInput();
+  let LanternFishData = getInput();
   let newFishCount: number;
   for (let dayNumber = 1; dayNumber <= 80; dayNumber++) {
     let newFishCount = 0;
-    AnglerFishData = AnglerFishData.map((fish) => {
+    LanternFishData = LanternFishData.map((fish) => {
       if (fish === 0) {
         newFishCount++;
         return 6;
@@ -32,11 +32,11 @@ const CalculateAnswerPartOne = () => {
       }
     });
     for (let index = 0; index < newFishCount; index++) {
-      AnglerFishData.push(8);
+      LanternFishData.push(8);
     }
   }
 
-  const answer = AnglerFishData.length;
+  const answer = LanternFishData.length;
   return answer;
 };
 

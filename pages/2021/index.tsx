@@ -4,7 +4,6 @@ import Footer from "@components/Footer";
 import styled from "styled-components";
 import CalendarDoor from "@components/CalendarDoor";
 import { CalendarGrid } from "@components/CalendarGrid";
-import Link from "next/link";
 
 const Container = styled.div`
   height: 100vh;
@@ -17,28 +16,25 @@ const Container = styled.div`
   background-image: url("/winter_background.png");
 `;
 
-const YearLinkText = styled.h3`
-  cursor: pointer;
-`;
-
 export default function Home() {
   return (
     <Container>
       <Head>
-        <title>Advent Of Code</title>
+        <title>Advent Of Code - 2021</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
         <Header />
-        <h1>Advent Of Code</h1>
-
-        <Link href="/2020">
-          <YearLinkText>2020</YearLinkText>
-        </Link>
-        <Link href="/2021">
-          <YearLinkText>2021</YearLinkText>
-        </Link>
+        <h1>2021</h1>
+        <CalendarGrid>
+          <CalendarDoor day="1" year="2021" />
+          <CalendarDoor day="2" year="2021"/>
+          <CalendarDoor day="3" year="2021"/>
+          <CalendarDoor day="4" year="2021"/>
+          <CalendarDoor day="5" year="2021"/>
+          <CalendarDoor day="6" year="2021"/>
+        </CalendarGrid>
       </main>
 
       <Footer />

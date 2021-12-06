@@ -17,7 +17,7 @@ export default function Header() {
   return (
     <Link href="/">
       <TitleContainer>
-        <TitleImage src="advent_of_code.png" />
+        <TitleImage src="/advent_of_code.png" />
       </TitleContainer>
     </Link>
   );
