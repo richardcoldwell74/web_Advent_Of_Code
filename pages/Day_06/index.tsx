@@ -48,7 +48,6 @@ const CalculateAnswerPartTwo = () => {
     AnglerFishGroupArray[fish]++;
   });
   for (let dayNumber = 1; dayNumber <= 256; dayNumber++) {
-    console.log(AnglerFishGroupArray);
     newFishCount = AnglerFishGroupArray.shift();
     AnglerFishGroupArray[6]+=newFishCount;
     AnglerFishGroupArray.push(newFishCount);
