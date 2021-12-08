@@ -41,50 +41,41 @@ const CalculateAnswerPartTwo = () => {
   let answer:number = 0;
   let signals = getSignals();
   for (let index = 0; index < signals.length; index++) {
-    let zero: string;
-    let one: string;
-    let two: string;
-    let three: string;
-    let four: string;
-    let five: string;
-    let six: string;
-    let seven: string;
-    let eight: string;
-    let nine: string;
+    let solvedSignals: string[] = ["","","","","","","","","","",]
     signals[index].forEach((signalValue) => {
       // workout 1
-      if (signalValue.length === 2) one = signalValue;
+      if (signalValue.length === 2) solvedSignals[1] = signalValue;
       // workout 4
-      if (signalValue.length === 4) four = signalValue;
+      if (signalValue.length === 4) solvedSignals[4] = signalValue;
       // workout 7
-      if (signalValue.length === 3) seven = signalValue;
+      if (signalValue.length === 3) solvedSignals[7] = signalValue;
       // workout 8
-      if (signalValue.length === 7) eight = signalValue;
+      if (signalValue.length === 7) solvedSignals[8] = signalValue;
     });
     // workout 9
-    let temp = diff(seven, one);
-    temp += four;
+    let temp = diff(solvedSignals[7], solvedSignals[1]);
+    temp += solvedSignals[4];
     signals[index].forEach((signalValue) => {
       if (signalValue.length === 6) {
         if (checkIfStringsContainSameCharacters(signalValue, temp))
-          nine = signalValue;
+        solvedSignals[9] = signalValue;
       }
     });
     // workout 3
     signals[index].forEach((signalValue) => {
       if (signalValue.length === 5) {
-        if (checkIfStringsContainSameCharacters(signalValue, one))
-          three = signalValue;
+        if (checkIfStringsContainSameCharacters(signalValue, solvedSignals[1]))
+        solvedSignals[3] = signalValue;
       }
     });
     // workout 0 and 6
     signals[index].forEach((signalValue) => {
       if (signalValue.length === 6) {
-        if (!checkIfStringsContainSameCharacters(signalValue, nine)) {
-          if (checkIfStringsContainSameCharacters(signalValue, one)) {
-            zero = signalValue;
+        if (!checkIfStringsContainSameCharacters(signalValue, solvedSignals[9])) {
+          if (checkIfStringsContainSameCharacters(signalValue, solvedSignals[1])) {
+            solvedSignals[0] = signalValue;
           } else {
-            six = signalValue;
+            solvedSignals[6] = signalValue;
           }
         }
       }
@@ -92,30 +83,18 @@ const CalculateAnswerPartTwo = () => {
     // workout 2 and 5
     signals[index].forEach((signalValue) => {
       if (signalValue.length === 5) {
-        if (!checkIfStringsContainSameCharacters(signalValue, three)) {
+        if (!checkIfStringsContainSameCharacters(signalValue, solvedSignals[3])) {
           //get difference between 8 and 9 then use that for comparison
-          temp = diff(eight, nine);
+          temp = diff(solvedSignals[8], solvedSignals[9]);
           if (checkIfStringsContainSameCharacters(signalValue, temp)) {
-            two = signalValue;
+            solvedSignals[2] = signalValue;
           } else {
-            five = signalValue;
+            solvedSignals[5] = signalValue;
           }
         }
       }
     });
-    let solvedSignals: string[] = [
-      zero,
-      one,
-      two,
-      three,
-      four,
-      five,
-      six,
-      seven,
-      eight,
-      nine,
-    ];
-
+   
     //Work Out The Outputs Values
     let outputs = getOutputs();
     let answerTotal: number = 0;
