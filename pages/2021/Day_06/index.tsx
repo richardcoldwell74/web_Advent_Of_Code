@@ -41,18 +41,18 @@ const CalculateAnswerPartOne = () => {
 };
 
 const CalculateAnswerPartTwo = () => {
-  let AnglerFishData = getInput();
+  let LanternFishData = getInput();
   let newFishCount: number;
-  let AnglerFishGroupArray: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-  AnglerFishData.forEach((fish) => {
-    AnglerFishGroupArray[fish]++;
+  let LanternFishGroupArray: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+  LanternFishData.forEach((fish) => {
+    LanternFishGroupArray[fish]++;
   });
   for (let dayNumber = 1; dayNumber <= 256; dayNumber++) {
-    newFishCount = AnglerFishGroupArray.shift();
-    AnglerFishGroupArray[6]+=newFishCount;
-    AnglerFishGroupArray.push(newFishCount);
+    newFishCount = LanternFishGroupArray.shift();
+    LanternFishGroupArray[6]+=newFishCount;
+    LanternFishGroupArray.push(newFishCount);
   }
-  const answer = AnglerFishGroupArray.reduce(
+  const answer = LanternFishGroupArray.reduce(
     (partial_sum, a) => partial_sum + a,
     0
   );
