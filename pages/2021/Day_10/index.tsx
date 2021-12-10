@@ -21,8 +21,9 @@ const Container = styled.div`
 const CalculateAnswerPartOne = () => {
   let Day10Part1Input = getInput();
 
-  let answer = CheckForIllegals(Day10Part1Input);
-  console.log("THE ANSWER IS " + answer);
+  let illegals = CheckForIllegals(Day10Part1Input);
+  let answer = CalculatePartOnePoints(illegals);
+
   return answer;
 };
 
@@ -35,7 +36,7 @@ const BracketMap = {
 
 function CheckForIllegals(lines: string[]) {
   const illegalChars: string[] = [];
-  lines.forEach((line) => {
+  lines.forEach((line: string) => {
     const stack = [];
     var keepGoing = true;
     for (let char of line) {
@@ -60,17 +61,20 @@ function CheckForIllegals(lines: string[]) {
       if (!keepGoing) break;
     }
   });
-  console.log(illegalChars)
+  return illegalChars;
+}
+
+const CalculatePartOnePoints = (illegalChars: string[]) => {
   let TotalPoints = 0;
   illegalChars.forEach((char) => {
     switch (char) {
       case ")":
         TotalPoints += 3;
         break;
-      case "}":
+      case "]":
         TotalPoints += 57;
         break;
-      case "]":
+      case "}":
         TotalPoints += 1197;
         break;
       case ">":
@@ -79,13 +83,111 @@ function CheckForIllegals(lines: string[]) {
     }
   });
   return TotalPoints;
-}
+};
 
 //PART 2
 const CalculateAnswerPartTwo = () => {
   let answer = 0;
+  let Day10Part1Input = getInput();
+  let ValidLineIndexs: number[] = GetAllValidLines(Day10Part1Input);
+  let ValidLines: string[] = [];
+
+  Day10Part1Input.forEach((line, index) => {
+    if (!ValidLineIndexs.includes(index)) {
+      ValidLines.push(line);
+    }
+  });
+  answer = WorkOutMissing(ValidLines);
+
   return answer;
 };
+
+function WorkOutMissing(lines: string[]) {
+  const allScores: number[] = [];
+  lines.forEach((line: string) => {
+    const stack: string[] = [];
+    for (let char of line) {
+      switch (char) {
+        case "(":
+        case "{":
+        case "[":
+        case "<":
+          stack.push(char);
+          break;
+        case ")":
+        case "}":
+        case "]":
+        case ">":
+          stack.pop();
+          break;
+      }
+    }
+    let score = 0;
+    console.log("STACK = " + stack);
+    let missingBrackets = stack.reverse();
+    console.log("MISSING BRACKETS = " + missingBrackets);
+    missingBrackets.forEach((bracket) => {
+      switch (bracket) {
+        case "(":
+          score = score * 5;
+          score += 1;
+          break;
+        case "[":
+          score = score * 5;
+          score += 2;
+          break;
+        case "{":
+          score = score * 5;
+          score += 3;
+          break;
+        case "<":
+          score = score * 5;
+          score += 4;
+          break;
+      }
+    });
+    allScores.push(score);
+  });
+  console.log("SCORE = " + allScores);
+  allScores.sort(function (a, b) {
+    return a - b;
+  });
+  let scoreIndex = (allScores.length - 1) / 2;
+  console.log("SCORE = " + allScores);
+  console.log("ANSWER SCORE = " + allScores[scoreIndex]);
+  return allScores[scoreIndex];
+}
+
+function GetAllValidLines(lines: string[]) {
+  let invalidLineIndexs: number[] = [];
+  lines.forEach((line: string, index: number) => {
+    const stack = [];
+    var keepGoing = true;
+    for (let char of line) {
+      switch (char) {
+        case "(":
+        case "{":
+        case "[":
+        case "<":
+          stack.push(char);
+          break;
+        case ")":
+        case "}":
+        case "]":
+        case ">":
+          const endValue = stack.pop();
+          if (endValue != BracketMap[char]) {
+            // illegalChars.push(char);
+            invalidLineIndexs.push(index);
+            keepGoing = false;
+            break;
+          }
+      }
+      if (!keepGoing) break;
+    }
+  });
+  return invalidLineIndexs;
+}
 
 const getInput = (): string[] => input.split("\n").map(String);
 
