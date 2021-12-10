@@ -73,7 +73,7 @@ interface CalendarDoorProps {
 
 export default function CalendarDoor({ day, year }) {
   const [doorOpen, setDoorOpen] = useState(false);
-  const [doorLink, setDoorLink] = useState(year + "/Day_0" + day);
+  const [doorLink, setDoorLink] = useState(year + "/Day_" + day);
   const openDoor = (): void => {
     setDoorOpen(!doorOpen);
   };

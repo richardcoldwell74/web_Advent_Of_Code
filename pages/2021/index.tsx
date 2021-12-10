@@ -28,15 +28,16 @@ export default function Home() {
         <Header />
         <h1>2021</h1>
         <CalendarGrid>
-          <CalendarDoor day="1" year="2021" />
-          <CalendarDoor day="2" year="2021"/>
-          <CalendarDoor day="3" year="2021"/>
-          <CalendarDoor day="4" year="2021"/>
-          <CalendarDoor day="5" year="2021"/>
-          <CalendarDoor day="6" year="2021"/>
-          <CalendarDoor day="7" year="2021"/>
-          <CalendarDoor day="8" year="2021"/>
-          <CalendarDoor day="9" year="2021"/>
+          <CalendarDoor day="01" year="2021" />
+          <CalendarDoor day="02" year="2021"/>
+          <CalendarDoor day="03" year="2021"/>
+          <CalendarDoor day="04" year="2021"/>
+          <CalendarDoor day="05" year="2021"/>
+          <CalendarDoor day="06" year="2021"/>
+          <CalendarDoor day="07" year="2021"/>
+          <CalendarDoor day="08" year="2021"/>
+          <CalendarDoor day="09" year="2021"/>
+          <CalendarDoor day="10" year="2021"/>
         </CalendarGrid>
       </main>
 
