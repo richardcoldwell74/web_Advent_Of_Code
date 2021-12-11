@@ -68,14 +68,11 @@ const CalculateAnswerPartOne = () => {
   );
 
   flashCount = 0;
-  //repeat 100 times
   for (let step = 0; step < 100; step++) {
-    // Step 1
     Add1ToAllOctopus();
 
     keepDoing = true;
     do {
-      //step 2 Flash octopus and update neighbours energy
       FlashAllOctopusOver9();
     } while (keepDoing);
     ResetAlFlashedToZero();
@@ -140,22 +137,16 @@ const CalculateAnswerPartTwo = () => {
   );
 
   let stepCount: number = 0;
-  //repeat 100 times
   do {
     stepCount += 1;
-    // for (let step = 0; step < 100; step++) {
-    // Step 1
     Add1ToAllOctopus();
 
     keepDoing = true;
     do {
-      //step 2 Flash octopus and update neighbours energy
       FlashAllOctopusOver9();
     } while (keepDoing);
     ResetAlFlashedToZero();
     NotAllZeroes = CheckIfAllZeroes();
-    console.log(stepCount);
-    // }
   } while (NotAllZeroes);
 
   return stepCount;
