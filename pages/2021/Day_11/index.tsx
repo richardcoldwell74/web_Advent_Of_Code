@@ -48,6 +48,7 @@ interface OctopusNeighbour {
 //PART 1
 let flashCount: number = 0;
 let keepDoing: boolean = true;
+let NotAllZeroes: boolean = true;
 let OctopusGrid: Octopus[][] = [];
 
 const CalculateAnswerPartOne = () => {
@@ -122,6 +123,56 @@ const FlashAllOctopusOver9 = () => {
   }
 };
 
+const CalculateAnswerPartTwo = () => {
+  let Day11Part1Input = getInput();
+
+  // create all the starting Octopus
+  OctopusGrid = Day11Part1Input.map((y, indexY) =>
+    y.map((x, indexX) => {
+      return {
+        x: indexX,
+        y: indexY,
+        energy: parseInt(x),
+        neighbours: findingNeighbors(Day11Part1Input, indexX, indexY),
+        hasFlashed: false,
+      };
+    })
+  );
+
+  let stepCount: number = 0;
+  //repeat 100 times
+  do {
+    stepCount += 1;
+    // for (let step = 0; step < 100; step++) {
+    // Step 1
+    Add1ToAllOctopus();
+
+    keepDoing = true;
+    do {
+      //step 2 Flash octopus and update neighbours energy
+      FlashAllOctopusOver9();
+    } while (keepDoing);
+    ResetAlFlashedToZero();
+    NotAllZeroes = CheckIfAllZeroes();
+    console.log(stepCount);
+    // }
+  } while (NotAllZeroes);
+
+  return stepCount;
+};
+
+const CheckIfAllZeroes = () => {
+  let allZeroes: boolean = false;
+  for (let y = 0; y < OctopusGrid.length; y++) {
+    for (let x = 0; x < OctopusGrid[y].length; x++) {
+      if (OctopusGrid[y][x].energy != 0) {
+        allZeroes = true;
+      }
+    }
+  }
+  return allZeroes;
+};
+
 const getInput = () => input.split("\n").map((line) => line.split(""));
 
 export default function Day11() {
@@ -138,7 +189,7 @@ export default function Day11() {
         <h2>Part 1</h2>
         <p>{CalculateAnswerPartOne()}</p>
         <h2>Part 2</h2>
-        {/* <p>{CalculateAnswerPartTwo()}</p> */}
+        <p>{CalculateAnswerPartTwo()}</p>
       </main>
 
       <Footer />
