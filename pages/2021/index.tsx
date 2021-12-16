@@ -40,6 +40,8 @@ export default function Home() {
           <CalendarDoor day="10" year="2021" />
           <CalendarDoor day="11" year="2021" />
           <CalendarDoor day="12" year="2021" />
+          <CalendarDoor day="13" year="2021" />
+          <CalendarDoor day="14" year="2021" />
         </CalendarGrid>
       </main>
 
