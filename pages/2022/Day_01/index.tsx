@@ -18,13 +18,42 @@ const Container = styled.div`
 `;
 
 const dayOneA = (inputArray: number[]): number => {
-  let ret = 0;
+  let total = 0;
+  let arrayOfTotals = [];
+  const totalledArray = inputArray.forEach((num) => {
+    if (num === 0) {
+      arrayOfTotals.push(total);
+      total = 0;
+    } else {
+      total += num;
+    }
+  });
+  arrayOfTotals.sort((a, b) => a - b);
+
+  console.log(arrayOfTotals);
+  let ret = arrayOfTotals[arrayOfTotals.length - 1];
 
   return ret;
 };
 
 const dayOneB = (inputArray: number[]): number => {
-  let ret = 0;
+  let total = 0;
+  let arrayOfTotals = [];
+  const totalledArray = inputArray.forEach((num) => {
+    if (num === 0) {
+      arrayOfTotals.push(total);
+      total = 0;
+    } else {
+      total += num;
+    }
+  });
+  arrayOfTotals.sort((a, b) => a - b);
+
+  console.log(arrayOfTotals);
+  let ret =
+    arrayOfTotals[arrayOfTotals.length - 1] +
+    arrayOfTotals[arrayOfTotals.length - 2] +
+    arrayOfTotals[arrayOfTotals.length - 3];
 
   return ret;
 };
