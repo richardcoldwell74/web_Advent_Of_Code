@@ -20,7 +20,7 @@ export default function Home() {
   return (
     <Container>
       <Head>
-        <title>Advent Of Code - 2021</title>
+        <title>Advent Of Code - 2022</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -30,6 +30,7 @@ export default function Home() {
         <CalendarGrid>
           <CalendarDoor day="01" year="2022" />
           <CalendarDoor day="02" year="2022" />
+          <CalendarDoor day="03" year="2022" />
         </CalendarGrid>
       </main>
 
