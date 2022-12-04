@@ -17,18 +17,90 @@ const Container = styled.div`
   background-image: url("/winter_background.png");
 `;
 
-const dayOneA = (inputArray: number[]): number => {
+type elfSectionPairsStartAndEndOnly = {
+  elfOnesSectionStart: number;
+  elfOnesSectionEnd: number;
+  elfTwosSectionStart: number;
+  elfTwosSectionEnd: number;
+};
+type elfSectionPairs = { elfOnesSections: number[]; elfTwosSections: number[] };
+
+const dataCreation = (inputArray: string[]): elfSectionPairs[] => {
+  let startAndEnds: elfSectionPairsStartAndEndOnly[] = [];
+  inputArray.forEach((sectionPair) => {
+    const splitValues = sectionPair.split("-").join(",").split(",");
+    startAndEnds.push({
+      elfOnesSectionStart: +splitValues[0],
+      elfOnesSectionEnd: +splitValues[1],
+      elfTwosSectionStart: +splitValues[2],
+      elfTwosSectionEnd: +splitValues[3],
+    });
+  });
+  let elfSectionPairs: elfSectionPairs[] = [];
+  startAndEnds.forEach((sectionPair) => {
+    let elfOnesSections: number[] = [];
+    let elfTwosSections: number[] = [];
+    for (
+      let i = sectionPair.elfOnesSectionStart;
+      i <= sectionPair.elfOnesSectionEnd;
+      i++
+    ) {
+      elfOnesSections.push(i);
+    }
+
+    for (
+      let i = sectionPair.elfTwosSectionStart;
+      i <= sectionPair.elfTwosSectionEnd;
+      i++
+    ) {
+      elfTwosSections.push(i);
+    }
+    elfSectionPairs.push({ elfOnesSections, elfTwosSections });
+  });
+  return elfSectionPairs;
+};
+
+const dayOneA = (inputArray: string[]): number => {
+  let formattedInput = dataCreation(inputArray);
+  let output: elfSectionPairs[] = [];
+  formattedInput.forEach((item, index) => {
+    let one = item.elfOnesSections.filter(
+      (val) => !item.elfTwosSections.includes(val)
+    );
+    let two = item.elfTwosSections.filter(
+      (val) => !item.elfOnesSections.includes(val)
+    );
+    output.push({ elfOnesSections: one, elfTwosSections: two });
+  });
   let total = 0;
+  output.forEach((item) => {
+    if (
+      item.elfOnesSections.length === 0 ||
+      item.elfTwosSections.length === 0
+    ) {
+      total += 1;
+    }
+  });
+
   return total;
 };
 
-const dayOneB = (inputArray: number[]): number => {
+const dayOneB = (inputArray: string[]): number => {
+  let formattedInput = dataCreation(inputArray);
   let total = 0;
+  formattedInput.forEach((item, index) => {
+    const contains = item.elfOnesSections.some((element) => {
+      return item.elfTwosSections.includes(element);
+    });
+    if (contains) {
+      total += 1;
+    }
+  });
 
   return total;
 };
 
-const getInput = (): number[] => testInput.split("\n").map(Number);
+const getInput = (): string[] => input.split("\n").map(String);
 
 export default function Day01() {
   return (
