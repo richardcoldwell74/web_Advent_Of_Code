@@ -62,7 +62,7 @@ const dataCreation = (inputArray: string[]): elfSectionPairs[] => {
 
 const dayOneA = (inputArray: string[]): number => {
   let formattedInput = dataCreation(inputArray);
-  let output: elfSectionPairs[] = [];
+  let total = 0;
   formattedInput.forEach((item, index) => {
     let one = item.elfOnesSections.filter(
       (val) => !item.elfTwosSections.includes(val)
@@ -70,14 +70,7 @@ const dayOneA = (inputArray: string[]): number => {
     let two = item.elfTwosSections.filter(
       (val) => !item.elfOnesSections.includes(val)
     );
-    output.push({ elfOnesSections: one, elfTwosSections: two });
-  });
-  let total = 0;
-  output.forEach((item) => {
-    if (
-      item.elfOnesSections.length === 0 ||
-      item.elfTwosSections.length === 0
-    ) {
+    if (one.length === 0 || two.length === 0) {
       total += 1;
     }
   });
