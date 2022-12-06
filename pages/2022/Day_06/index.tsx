@@ -20,16 +20,50 @@ const dataCreation = (inputArray: string[]): string => {
   return "";
 };
 
-const daySixA = (inputArray: string[]): string => {
-  let ret = "TO DO";
+function containsDuplicates(array: string[]) {
+  if (array.length !== new Set(array).size) {
+    return true;
+  }
 
-  return ret;
+  return false;
+}
+
+const daySixA = (inputString: string): number => {
+  let position = 0;
+  let lastFourDigitsArray: string[] = [];
+  for (let index = 0; index < inputString.length; index++) {
+    lastFourDigitsArray.push(inputString[index]);
+    position++;
+    if (lastFourDigitsArray.length === 5) {
+      lastFourDigitsArray = lastFourDigitsArray.slice(1);
+    }
+    if (lastFourDigitsArray.length === 4) {
+      if (!containsDuplicates(lastFourDigitsArray)) {
+        break;
+      }
+    }
+  }
+
+  return position;
 };
 
-const daySixB = (inputArray: string[]): string => {
-  let ret = "TO DO";
+const daySixB = (inputString: string): number => {
+  let position = 0;
+  let lastFourDigitsArray: string[] = [];
+  for (let index = 0; index < inputString.length; index++) {
+    lastFourDigitsArray.push(inputString[index]);
+    position++;
+    if (lastFourDigitsArray.length === 15) {
+      lastFourDigitsArray = lastFourDigitsArray.slice(1);
+    }
+    if (lastFourDigitsArray.length === 14) {
+      if (!containsDuplicates(lastFourDigitsArray)) {
+        break;
+      }
+    }
+  }
 
-  return ret;
+  return position;
 };
 
 const getInput = (): string[] => testInput.split("\n").map(String);
@@ -46,9 +80,9 @@ export default function Day01() {
         <Header />
         <h1>Day 6</h1>
         <h2>Part 1</h2>
-        <p>{daySixA(getInput())}</p>
+        <p>{daySixA(testInput)}</p>
         <h2>Part 2</h2>
-        <p>{daySixB(getInput())}</p>
+        <p>{daySixB(testInput)}</p>
       </main>
 
       <Footer />
