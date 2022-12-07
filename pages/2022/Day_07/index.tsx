@@ -22,10 +22,11 @@ type Directory = {
   name: string;
   children: Directory[];
   files: File[];
+  size: number;
 };
 type File = { parent: Directory; name: string; size: number };
 
-let ListOfDirectories: Directory[] = [];
+let ListOfActualDirectories: Directory[] = [];
 
 const daySevenA = (inputArray: string[]): number => {
   const rootDirectory: Directory = {
@@ -33,7 +34,10 @@ const daySevenA = (inputArray: string[]): number => {
     name: "/",
     children: [],
     files: [],
+    size: 0,
   };
+
+  ListOfActualDirectories.push(rootDirectory);
 
   let currentDirectory: Directory = rootDirectory;
   inputArray.forEach((command, index) => {
@@ -45,7 +49,7 @@ const daySevenA = (inputArray: string[]): number => {
         } else {
           // go down a directory
           currentDirectory = currentDirectory.children.find((child) => {
-            return child.name === command[command.length - 1];
+            return child.name === command.split(" ")[2];
           }) as Directory;
         }
       } else if (command.includes("$ ls")) {
@@ -54,10 +58,14 @@ const daySevenA = (inputArray: string[]): number => {
         //create  a directory as a child of the current directory
         currentDirectory.children.push({
           parent: currentDirectory,
-          name: command[command.length - 1],
+          name: command.split(" ")[1],
           children: [],
           files: [],
+          size: 0,
         } as Directory);
+        ListOfActualDirectories.push(
+          currentDirectory.children[currentDirectory.children.length - 1]
+        );
       } else {
         // create a file as a child of the current directory
         currentDirectory.files.push({
@@ -69,14 +77,26 @@ const daySevenA = (inputArray: string[]): number => {
     }
   });
 
-  // rootDirectory.children.forEach((child) => {
+  ListOfActualDirectories.forEach((directory) => {
+    directory.size = directory.files.reduce((acc, file) => acc + file.size, 0);
+  });
 
-  // }
+  for (let index = ListOfActualDirectories.length - 1; index >= 0; index--) {
+    ListOfActualDirectories[index].children.forEach((child) => {
+      ListOfActualDirectories[index].size += child.size;
+    });
+  }
 
-  console.log("rootDirectory", rootDirectory);
-  let ret = 0;
+  console.log("ListOfActualDirectories", ListOfActualDirectories);
 
-  return ret;
+  let total = 0;
+  ListOfActualDirectories.forEach((directory) => {
+    if (directory.size <= 100000) {
+      total += directory.size;
+    }
+  });
+
+  return total;
 };
 
 const daySevenB = (inputArray: string[]): number => {
@@ -85,7 +105,7 @@ const daySevenB = (inputArray: string[]): number => {
   return ret;
 };
 
-const getInput = (): string[] => testInput.split("\n").map(String);
+const getInput = (): string[] => input.split("\n").map(String);
 
 export default function Day07() {
   return (
