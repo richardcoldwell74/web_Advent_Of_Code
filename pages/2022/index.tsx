@@ -33,6 +33,8 @@ export default function Home() {
           <CalendarDoor day="03" year="2022" />
           <CalendarDoor day="04" year="2022" />
           <CalendarDoor day="05" year="2022" />
+          <CalendarDoor day="06" year="2022" />
+          <CalendarDoor day="07" year="2022" />
         </CalendarGrid>
       </main>
 
