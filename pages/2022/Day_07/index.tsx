@@ -1,8 +1,8 @@
 import Head from "next/head";
 import Header from "@components/Header";
 import Footer from "@components/Footer";
-import { input } from "../../../api/2022/day_01/input";
-import { testInput } from "../../../api/2022/day_01/testInput";
+import { input } from "../../../api/2022/day_07/input";
+import { testInput } from "../../../api/2022/day_07/testInput";
 import styled from "styled-components";
 import { useState } from "react";
 
@@ -17,19 +17,75 @@ const Container = styled.div`
   background-image: url("/winter_background.png");
 `;
 
-const daySevenA = (inputArray: number[]): number => {
+type Directory = {
+  parent: Directory | null;
+  name: string;
+  children: Directory[];
+  files: File[];
+};
+type File = { parent: Directory; name: string; size: number };
+
+let ListOfDirectories: Directory[] = [];
+
+const daySevenA = (inputArray: string[]): number => {
+  const rootDirectory: Directory = {
+    parent: null,
+    name: "/",
+    children: [],
+    files: [],
+  };
+
+  let currentDirectory: Directory = rootDirectory;
+  inputArray.forEach((command, index) => {
+    if (index > 1) {
+      if (command.includes("$ cd")) {
+        if (command.includes("..")) {
+          // go up a directory
+          currentDirectory = currentDirectory.parent;
+        } else {
+          // go down a directory
+          currentDirectory = currentDirectory.children.find((child) => {
+            return child.name === command[command.length - 1];
+          }) as Directory;
+        }
+      } else if (command.includes("$ ls")) {
+        // do nothing for now
+      } else if (command.includes("dir")) {
+        //create  a directory as a child of the current directory
+        currentDirectory.children.push({
+          parent: currentDirectory,
+          name: command[command.length - 1],
+          children: [],
+          files: [],
+        } as Directory);
+      } else {
+        // create a file as a child of the current directory
+        currentDirectory.files.push({
+          parent: currentDirectory,
+          name: command.split(" ")[1],
+          size: +command.split(" ")[0],
+        } as File);
+      }
+    }
+  });
+
+  // rootDirectory.children.forEach((child) => {
+
+  // }
+
+  console.log("rootDirectory", rootDirectory);
   let ret = 0;
 
   return ret;
 };
 
-const daySevenB = (inputArray: number[]): number => {
+const daySevenB = (inputArray: string[]): number => {
   let ret = 0;
 
   return ret;
 };
 
-const getInput = (): number[] => input.split("\n").map(Number);
+const getInput = (): string[] => testInput.split("\n").map(String);
 
 export default function Day07() {
   return (
