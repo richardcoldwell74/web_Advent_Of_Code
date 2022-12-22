@@ -70,11 +70,70 @@ const dayNineA = (inputArray: string[]): number => {
 };
 
 const dayNineB = (inputArray: string[]): number => {
-  let directions = new Array(inputArray.length);
+  let tailVisited: Position[] = [];
+  let H = [0, 0];
+  let T = [0, 0];
+  let Rope = [
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+  ];
+  const motions: Motion[] = [];
+  inputArray.forEach((line) => {
+    motions.push({ direction: line.split(" ")[0], steps: +line.split(" ")[1] });
+  });
 
-  let total = 0;
+  motions.forEach((motion) => {
+    for (let index = 0; index < motion.steps; index++) {
+      let dx = 0;
+      let dy = 0;
+      if (motion.direction === "R") {
+        dx = 1;
+      } else if (motion.direction === "L") {
+        dx = -1;
+      } else if (motion.direction === "U") {
+        dy = 1;
+      } else if (motion.direction === "D") {
+        dy = -1;
+      }
+      Rope[0][0] += dx;
+      Rope[0][1] += dy;
 
-  return total;
+      for (let index = 0; index < 9; index++) {
+        H = Rope[index];
+        T = Rope[index + 1];
+
+        const x = H[0] - T[0];
+        const y = H[1] - T[1];
+
+        if (Math.abs(x) > 1 || Math.abs(y) > 1) {
+          if (x === 0) {
+            T[1] += Math.sign(y);
+          } else if (y === 0) {
+            T[0] += Math.sign(x);
+          } else {
+            T[0] += Math.sign(x);
+            T[1] += Math.sign(y);
+          }
+        }
+        let posToAdd = { x: Rope[9][0], y: Rope[9][1] };
+        tailVisited.push(posToAdd);
+      }
+    }
+  });
+  tailVisited = tailVisited.filter(
+    (value, index, self) =>
+      index === self.findIndex((t) => t.x === value.x && t.y === value.y)
+  );
+
+  return tailVisited.length;
 };
 
 const getInput = (): string[] => input.split("\n").map(String);
