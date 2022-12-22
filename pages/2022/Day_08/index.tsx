@@ -294,7 +294,7 @@ const dayEightB = (inputArray: string[]): number => {
 
 const getInput = (): string[] => input.split("\n").map(String);
 
-export default function Day07() {
+export default function Day08() {
   return (
     <Container>
       <Head>

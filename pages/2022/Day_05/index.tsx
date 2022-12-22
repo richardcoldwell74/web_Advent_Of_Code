@@ -4,7 +4,6 @@ import Footer from "@components/Footer";
 import { input } from "../../../api/2022/day_05/input";
 import { testInput } from "../../../api/2022/day_05/testInput";
 import styled from "styled-components";
-import { useState } from "react";
 
 const Container = styled.div`
   height: 100vh;
