@@ -47,7 +47,6 @@ const dayTenA = (inputArray: string[]): number => {
 };
 
 const dayTenB = (inputArray: string[]): string[] => {
-  console.log("inputArray", inputArray);
   const cycles: Cycle[] = [];
   let noOfCycles = 0;
   let x = 1;
@@ -63,8 +62,6 @@ const dayTenB = (inputArray: string[]): string[] => {
       cycles.push({ cycleNumber: noOfCycles, x: x });
     }
   });
-
-  console.log("cycles", cycles);
 
   let crtDisplay: string[] = [];
   cycles.forEach((cycle) => {
